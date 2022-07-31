@@ -102,8 +102,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.idea
 .env
 .venv
+idea/
 env/
 venv/
 ENV/
@@ -127,3 +129,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+task_management/S_K.py
