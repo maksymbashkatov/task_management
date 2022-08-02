@@ -1,15 +1,13 @@
 {% extends 'index.html' %}
 {% block title %}{{ task.name }}{% endblock %}
 {% block content %}
+{% for task in object_list %}
 <div class="container">
     <div class="col card">
         <h2 class="title">{{ task.name }}</h2>
-        <p>{{ task.text }}</p>
+        <p>{{ task.text|slice:30 }}</p>
         <h3>{{ task.deadline }}</h3>
-        <p>{{ task.status }}</p>
-        <p>{{ task.priority }}</p>
-        <p>{{ task.importance }}</p>
-        <a href="{% url 'task_list' %}">List of tasks</a>
     </div>
 </div>
+{% endfor %}
 {% endblock %}
