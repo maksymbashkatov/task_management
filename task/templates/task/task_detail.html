@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block title %}{{ task.name }}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col card">
+        <h2 class="title">{{ task.name }}</h2>
+        <p>{{ task.text }}</p>
+        <h3>{{ task.deadline }}</h3>
+        <p>{{ task.status }}</p>
+        <p>{{ task.priority }}</p>
+        <p>{{ task.importance }}</p>
+        <a href="">List of tasks</a>
+    </div>
+</div>
+{% endblock %}

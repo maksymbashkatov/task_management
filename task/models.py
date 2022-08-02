@@ -3,14 +3,14 @@ from user.models import CustomUser
 
 
 class Task(models.Model):
-    priorities = (('l', 'low'),
-                  ('h', 'high'),
-                  ('m', 'medium'))
+    priorities = (('low', 'Low'),
+                  ('high', 'High'),
+                  ('medium', 'Medium'))
 
-    statuses = (('t', 'todo'),
-                ('ip', 'in_progress'),
-                ('b', 'blocked'),
-                ('f', 'finished'))
+    statuses = (('todo', 'To do'),
+                ('in_progress', 'In progress'),
+                ('blocked', 'Blocked'),
+                ('finished', 'Finished'))
 
     name = models.CharField(max_length=100)
     text = models.TextField()
