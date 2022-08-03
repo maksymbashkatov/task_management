@@ -1,6 +1,6 @@
 from django.contrib import admin
 from user.forms import CustomUserCreationForm
-from user.models import CustomUser
+from user.models import CustomUser, UserUUID
 
 
 class CustomUserAdmin(admin.ModelAdmin):
@@ -14,4 +14,12 @@ class CustomUserAdmin(admin.ModelAdmin):
         model = CustomUser
 
 
+class UserUUIDAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user']
+
+    class Meta:
+        model = UserUUID
+
+
+admin.site.register(UserUUID, UserUUIDAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)

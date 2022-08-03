@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
@@ -50,3 +51,8 @@ class CustomUser(AbstractUser):
     class Meta:
         db_table = 'users'
         verbose_name = 'user'
+
+
+class UserUUID(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank='true', null='true')
