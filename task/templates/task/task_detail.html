@@ -6,8 +6,8 @@
         <h2 class="title">{{ task.name }}</h2>
         <p>{{ task.text }}</p>
         <h3>{{ task.deadline }}</h3>
-        <p>{{ task.status }}</p>
-        <p>{{ task.priority }}</p>
+        <p>{{ task.get_status_display }}</p>
+        <p>{{ task.get_priority_display }}</p>
         <p>{{ task.importance }}</p>
         <a href="{% url 'task_list' %}">List of tasks</a>
     </div>
