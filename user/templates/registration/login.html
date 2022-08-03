@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block title %}Registration form{% endblock %}
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                Email:
+            </div>
+            <div class="col">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Enter password:
+            </div>
+            <div class="col">
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Sign in">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -13,7 +13,11 @@
     <div class="row">
         <header>
             <a href="">Logo</a>
-            <a href="">User Name Lastname</a>
+            {% if user.is_authenticated %}
+                {{ user.first_name }} {{ user.last_name }} | <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+            {% endif %}
         </header>
     </div>
 </div>
@@ -24,7 +28,7 @@ Start page
     <div class="row">
         <footer>
             <a href="">Logo</a>
-            <a href="">User Name Lastname</a>
+            <a href="">{{ user.first_name }} {{ user.last_name }}</a>
             <a href="">GitHub</a>
             <a href="">LinkedIn</a>
         </footer>
