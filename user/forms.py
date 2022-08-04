@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from user.models import CustomUser
+from user.models import CustomUser, UserUUID
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -16,4 +16,5 @@ class CustomUserCreationForm(UserCreationForm):
         user.work_position = self.cleaned_data['work_position']
         if commit:
             user.save()
+            UserUUID.objects.create(user=CustomUser.objects.get(id=user.id))
         return user
