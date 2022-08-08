@@ -12,11 +12,9 @@
 <div class="container">
     <div class="row">
         <header>
-            <a href="">Logo</a>
+            <a href=""><h1>Site LOGO</h1></a><br>
             {% if user.is_authenticated %}
-                {{ user.first_name }} {{ user.last_name }} | <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
+            <a href="">{{ user.first_name }} {{ user.last_name }}</a> | <a href="{% url 'logout' %}">Logout</a>
             {% endif %}
         </header>
     </div>
@@ -27,8 +25,10 @@ Start page
 <div class="container">
     <div class="row">
         <footer>
-            <a href="">Logo</a>
+            <a href=""><h1>Site LOGO</h1></a><br>
+            {% if user.is_authenticated %}
             <a href="">{{ user.first_name }} {{ user.last_name }}</a>
+            {% endif %}
             <a href="">GitHub</a>
             <a href="">LinkedIn</a>
         </footer>

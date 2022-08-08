@@ -41,6 +41,9 @@ class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
     work_position = models.CharField(max_length=50, blank='true', null='true')
+    is_confirmed = models.BooleanField(
+        default=False
+    )
 
     objects = CustomUserManager()
 

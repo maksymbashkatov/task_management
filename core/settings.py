@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'user.apps.UserConfig',
     'task'
 ]
@@ -119,3 +120,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'user.CustomUser'
+
+EMAIL_HOST = 'smtp.ukr.net'
+EMAIL_HOST_USER = 'maksymbashkatov@ukr.net'
+EMAIL_HOST_PASSWORD = '69BuedUJR1QxmNwe'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+SITE_ID = 1

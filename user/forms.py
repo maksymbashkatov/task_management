@@ -1,5 +1,17 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.sites.models import Site
+from django.core.mail import send_mail
 from user.models import CustomUser, UserUUID
+
+
+def send_email(email, uuid):
+    confirm_link = f'{Site.objects.get_current().domain}/users/confirm_user/?uuid={uuid}'
+    send_mail(
+        'Activation link',
+        f'Please follow the activation link below.\n{confirm_link}',
+        'maksymbashkatov@ukr.net',
+        (f'{email}',)
+    )
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -17,4 +29,5 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
             UserUUID.objects.create(user=CustomUser.objects.get(id=user.id))
+            send_email(user.email, UserUUID.objects.get(user=user).id)
         return user

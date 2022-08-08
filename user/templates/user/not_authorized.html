@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block title %}Not authorized{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <button style="width: 100%; margin: 1px;" onclick="window.location.href = '{% url 'register' %}';">Register</button>
+    </div>
+    <div class="row">
+        <button style="width: 100%; margin: 1px;" onclick="window.location.href = '{% url 'login' %}';">Login</button>
+    </div>
+</div>
+{% endblock %}
