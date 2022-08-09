@@ -14,12 +14,13 @@ class Task(models.Model):
 
     name = models.CharField(max_length=100)
     text = models.TextField()
-    deadline = models.DateField()
+    deadline = models.DateTimeField()
     status = models.CharField(max_length=20, default=priorities[0], choices=statuses)
     priority = models.CharField(max_length=20, default=priorities[2], choices=priorities)
     importance = models.BooleanField(default=False, null=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank='true', null='true')
     date_created = models.DateTimeField(auto_now_add=True)
+    # total_time = models.DateTimeField()
 
     class Meta:
         db_table = 'tasks'

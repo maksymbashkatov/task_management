@@ -9,7 +9,7 @@
         <p>{{ task.get_status_display }}</p>
         <p>{{ task.get_priority_display }}</p>
         <p>{{ task.importance }}</p>
-        <a href="{% url 'task_list' %}">List of tasks</a>
+        <a href="{% url 'task_list' %}">{{ user.first_name }}'s task list</a>
     </div>
 </div>
 {% endblock %}

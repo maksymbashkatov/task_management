@@ -1,0 +1,11 @@
+{% extends 'index.html' %}
+{% block title %}{{ user.first_name }}'s tasks{% endblock %}
+{% block content %}
+<h1>Statistics of {{ user.first_name }} {{ user.last_name }}'s tasks</h1>
+Total tasks: {{ total_tasks }}<br>
+Todo tasks: {{ todo_tasks }}<br>
+In progress tasks: {{ in_progress_tasks }}<br>
+Blocked tasks: {{ blocked_tasks }}<br>
+Finished tasks: {{ finished_tasks }}<br>
+average duration of tasks: {{ average_duration_of_tasks }}
+{% endblock %}
