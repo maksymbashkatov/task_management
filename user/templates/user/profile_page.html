@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block title %}User profile{% endblock %}
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                First name:
+            </div>
+            <div class="col">
+                {{ form.first_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Last name:
+            </div>
+            <div class="col">
+                {{ form.last_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                Work position:
+            </div>
+            <div class="col">
+                {{ form.work_position }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Save">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

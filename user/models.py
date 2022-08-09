@@ -3,6 +3,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 class CustomUserManager(BaseUserManager):
@@ -54,6 +55,9 @@ class CustomUser(AbstractUser):
     class Meta:
         db_table = 'users'
         verbose_name = 'user'
+
+    def get_absolute_url(self):
+        return reverse('profile_page', args=(self.pk,))
 
 
 class UserUUID(models.Model):
