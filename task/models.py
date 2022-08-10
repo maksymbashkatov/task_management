@@ -22,5 +22,8 @@ class Task(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     # total_time = models.DateTimeField()
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         db_table = 'tasks'

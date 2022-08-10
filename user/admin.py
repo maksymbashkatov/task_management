@@ -14,13 +14,12 @@ class TaskInline(admin.TabularInline):
 
 
 class CustomUserAdmin(admin.ModelAdmin):
-
     inlines = (TaskInline,)
 
     def total_tasks(self, obj):
         return Task.objects.filter(user=obj).count()
 
-    # List of CustomUser fields
+    # List of CustomUser model fields
     # ('id', 'email', 'first_name', 'last_name', 'work_position', 'password', 'is_active', 'is_confirmed')
 
     # List of users form

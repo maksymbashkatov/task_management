@@ -3,10 +3,24 @@ from task.models import Task
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'text', 'deadline', 'status', 'priority', 'importance', 'user']
-    search_fields = ['name', 'text', 'deadline', 'status', 'priority', 'importance']
-    list_filter = ['name', 'text', 'deadline', 'status', 'priority', 'importance', 'user']
-    list_editable = ['name', 'text', 'deadline', 'status', 'priority', 'importance', 'user']
+    def short_description(self, obj):
+        return obj.text[:30]
+
+    def task_owner(self, obj):
+        u = obj.user
+        return f'{u.first_name} {u.last_name}'
+
+    # List of Task model fields
+    # ('id', 'name', 'text', 'deadline', 'status', 'priority', 'importance', 'user')
+
+    # List of tasks form
+    list_display = ('name', 'short_description', 'task_owner')
+    search_fields = ('name',)
+    list_filter = ('user',)
+
+    # Task form
+    fields = ('name', 'text', 'user', 'status')
+    readonly_fields = ('user',)
 
     class Meta:
         model = Task
