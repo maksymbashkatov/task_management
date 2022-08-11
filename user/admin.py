@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from task.models import Task
-from user.models import CustomUser, UserUUID
+from user.models import CustomUser, UserUUID, Dashboard
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -29,6 +29,23 @@ def unblock_user(modeladmin, request, queryset):
 @admin.action(description='Cancel confirm selected users')
 def cancel_confirm_user(modeladmin, request, queryset):
     queryset.update(is_confirmed=False)
+
+
+@admin.register(Dashboard)
+class SaleSummaryAdmin(admin.ModelAdmin):
+    change_list_template = 'user/general_statistic.html'
+
+    def changelist_view(self, request, extra_context=None):
+        response = super().changelist_view(request, extra_context=extra_context)
+
+        response.context_data['total_users'] = CustomUser.objects.count()
+        t_o = Task.objects
+        response.context_data['total_tasks'] = t_o.count()
+        response.context_data['todo_tasks'] = t_o.filter(status='todo').count()
+        response.context_data['in_progress_tasks'] = t_o.filter(status='in_progress').count()
+        response.context_data['blocked_tasks'] = t_o.filter(status='blocked').count()
+        response.context_data['finished_tasks'] = t_o.filter(status='finished').count()
+        return response
 
 
 class TaskInline(admin.TabularInline):

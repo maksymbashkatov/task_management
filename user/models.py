@@ -62,3 +62,10 @@ class CustomUser(AbstractUser):
 class UserUUID(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank='true', null='true')
+
+
+class Dashboard(CustomUser):
+    class Meta:
+        proxy = True
+        verbose_name = 'User dashboard'
+        verbose_name_plural = 'Users dashboard'
