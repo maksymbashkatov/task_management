@@ -25,10 +25,12 @@ class LoginFormView(FormView):
 
     def form_valid(self, form):
         self.user = form.get_user()
-        login(self.request, self.user)
-        if not self.request.user.is_confirmed:
+        if not self.user.is_confirmed:
             return render(self.request, 'user/confirm_user.html')
+        elif self.user.is_blocked:
+            return render(self.request, 'user/blocked_user.html')
         else:
+            login(self.request, self.user)
             return super().form_valid(form)
 
 
