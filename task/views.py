@@ -1,18 +1,6 @@
-from django.db.models import Avg
-from django.shortcuts import render, get_object_or_404
-from django.views import View
+from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from task.models import Task
-
-
-# def render_check_user(request, template_for_checked_user, get_queryset):
-#     u = request.user
-#     if u.is_authenticated:
-#         return render(request,
-#                       template_for_checked_user if u.is_confirmed else 'user/confirm_user.html',
-#                       {'object_list': get_queryset})
-#     else:
-#         return render(request, 'user/not_authorized.html')
 
 
 class TaskDetailView(DetailView):
