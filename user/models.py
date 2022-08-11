@@ -39,7 +39,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-    username = None
+    username = models.CharField(max_length=50, blank='true', null='true')
     email = models.EmailField(unique=True)
     work_position = models.CharField(max_length=50, blank='true', null='true')
     is_confirmed = models.BooleanField(
@@ -48,7 +48,7 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-    USERNAME_REQUIRED = False
+    # USERNAME_REQUIRED = False
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
