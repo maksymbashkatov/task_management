@@ -32,7 +32,7 @@ def cancel_confirm_user(modeladmin, request, queryset):
 
 
 @admin.register(Dashboard)
-class SaleSummaryAdmin(admin.ModelAdmin):
+class DashboardAdmin(admin.ModelAdmin):
     change_list_template = 'user/general_statistic.html'
 
     def changelist_view(self, request, extra_context=None):
@@ -90,11 +90,8 @@ class CustomUserAdmin(UserAdmin):
         UserUUID.objects.create(user=CustomUser.objects.get(id=obj.id))
         send_email(obj.email, UserUUID.objects.get(user=obj).id)
 
-    def has_add_permission(self, request):
-        return True
-
-    # def has_change_permission(self, request, obj=None):
-    #     return False
+    def has_change_permission(self, request, obj=None):
+        return False if obj else True
 
     class Meta:
         model = CustomUser
