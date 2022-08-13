@@ -1,19 +1,8 @@
 from django.contrib import admin
-from django.contrib.sites.models import Site
-from django.core.mail import send_mail
+from core.tm_functions import send_email
 from task.models import Task
 from user.models import CustomUser, Dashboard
 from django.contrib.auth.admin import UserAdmin
-
-
-def send_email(email, uuid):
-    confirm_link = f'{Site.objects.get_current().domain}/users/confirm_user/?uuid={uuid}'
-    send_mail(
-        'Activation link',
-        f'Please follow the activation link below.\n{confirm_link}',
-        'maksymbashkatov@ukr.net',
-        (f'{email}',)
-    )
 
 
 @admin.action(description='Block selected users')
@@ -90,8 +79,7 @@ class CustomUserAdmin(UserAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        # UserUUID.objects.create(user=CustomUser.objects.get(id=obj.id))
-        # send_email(obj.email, UserUUID.objects.get(user=obj).id)
+        send_email(obj.email, obj.uuid)
 
     def has_change_permission(self, request, obj=None):
         return False if obj else True
