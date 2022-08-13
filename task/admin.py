@@ -3,13 +3,6 @@ from task.models import Task
 
 
 class TaskAdmin(admin.ModelAdmin):
-    def short_description(self, obj):
-        return obj.text[:30]
-
-    def task_owner(self, obj):
-        u = obj.user
-        return f'{u.first_name} {u.last_name}'
-
     # List of Task model fields
     # ('id', 'name', 'text', 'deadline', 'status', 'priority', 'importance', 'user')
 
@@ -21,6 +14,13 @@ class TaskAdmin(admin.ModelAdmin):
     # Task form
     fields = ('name', 'text', 'user', 'status')
     readonly_fields = ('user',)
+
+    def short_description(self, obj):
+        return obj.text[:30]
+
+    def task_owner(self, obj):
+        u = obj.user
+        return f'{u.first_name} {u.last_name}'
 
     class Meta:
         model = Task

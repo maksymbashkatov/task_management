@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
-from user.models import CustomUser, UserUUID
+from user.models import CustomUser
 
 
 def send_email(email, uuid):
@@ -28,6 +28,5 @@ class CustomUserCreationForm(UserCreationForm):
         user.work_position = self.cleaned_data['work_position']
         if commit:
             user.save()
-            UserUUID.objects.create(user=CustomUser.objects.get(id=user.id))
-            send_email(user.email, UserUUID.objects.get(user=user).id)
+            send_email(user.email, user.uuid)
         return user

@@ -40,9 +40,11 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=50, blank='true', null='true')
+    # username = None
+    uuid = models.UUIDField(primary_key=False, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     work_position = models.CharField(max_length=50, blank='true', null='true')
-    is_confirmed = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
 
     objects = CustomUserManager()
@@ -58,9 +60,9 @@ class CustomUser(AbstractUser):
         return reverse('profile_page', args=(self.pk,))
 
 
-class UserUUID(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank='true', null='true')
+# class UserUUID(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank='true', null='true')
 
 
 class Dashboard(CustomUser):

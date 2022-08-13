@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.sites.models import Site
 from django.core.mail import send_mail
 from task.models import Task
-from user.models import CustomUser, UserUUID, Dashboard
+from user.models import CustomUser, Dashboard
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -26,9 +26,9 @@ def unblock_user(modeladmin, request, queryset):
     queryset.update(is_blocked=False)
 
 
-@admin.action(description='Cancel confirm selected users')
+@admin.action(description='Deactivate selected users')
 def cancel_confirm_user(modeladmin, request, queryset):
-    queryset.update(is_confirmed=False)
+    queryset.update(is_active=False)
 
 
 @admin.register(Dashboard)
@@ -37,14 +37,17 @@ class DashboardAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         response = super().changelist_view(request, extra_context=extra_context)
-
-        response.context_data['total_users'] = CustomUser.objects.count()
         t_o = Task.objects
-        response.context_data['total_tasks'] = t_o.count()
-        response.context_data['todo_tasks'] = t_o.filter(status='todo').count()
-        response.context_data['in_progress_tasks'] = t_o.filter(status='in_progress').count()
-        response.context_data['blocked_tasks'] = t_o.filter(status='blocked').count()
-        response.context_data['finished_tasks'] = t_o.filter(status='finished').count()
+
+        response.context_data.update({
+            'total_users': CustomUser.objects.count(),
+            'total_tasks': t_o.count(),
+            'todo_tasks': t_o.filter(status='todo').count(),
+            'in_progress_tasks': t_o.filter(status='in_progress').count(),
+            'blocked_tasks': t_o.filter(status='blocked').count(),
+            'finished_tasks': t_o.filter(status='finished').count()
+        })
+
         return response
 
 
@@ -62,10 +65,10 @@ class CustomUserAdmin(UserAdmin):
     actions = [block_user, unblock_user, cancel_confirm_user]
 
     # List of CustomUser model fields
-    # ('id', 'email', 'first_name', 'last_name', 'work_position', 'password', 'is_active', 'is_confirmed', 'is_blocked')
+    # ('id', 'email', 'first_name', 'last_name', 'work_position', 'password', 'is_active', 'is_blocked')
 
     # List of users form
-    list_display = ('first_name', 'last_name', 'work_position', 'email', 'total_tasks', 'is_blocked')
+    list_display = ('first_name', 'last_name', 'work_position', 'email', 'total_tasks', 'is_active', 'is_blocked')
     search_fields = ('first_name', 'last_name')
 
     # User form
@@ -87,8 +90,8 @@ class CustomUserAdmin(UserAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.save()
-        UserUUID.objects.create(user=CustomUser.objects.get(id=obj.id))
-        send_email(obj.email, UserUUID.objects.get(user=obj).id)
+        # UserUUID.objects.create(user=CustomUser.objects.get(id=obj.id))
+        # send_email(obj.email, UserUUID.objects.get(user=obj).id)
 
     def has_change_permission(self, request, obj=None):
         return False if obj else True
@@ -97,12 +100,4 @@ class CustomUserAdmin(UserAdmin):
         model = CustomUser
 
 
-class UserUUIDAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user')
-
-    class Meta:
-        model = UserUUID
-
-
-admin.site.register(UserUUID, UserUUIDAdmin)
 admin.site.register(CustomUser, CustomUserAdmin)
