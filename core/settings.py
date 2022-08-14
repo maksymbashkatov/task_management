@@ -30,7 +30,8 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'task',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -66,13 +67,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -142,6 +136,8 @@ EMAIL_USE_SSL = True
 SITE_ID = 1
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     )

@@ -7,7 +7,7 @@ class TaskAdmin(admin.ModelAdmin):
     # ('id', 'name', 'text', 'deadline', 'status', 'priority', 'importance', 'user')
 
     # List of tasks form
-    list_display = ('name', 'short_description', 'task_owner')
+    list_display = ('name', 'short_description', 'task_owner', 'importance')
     search_fields = ('name',)
     list_filter = ('user',)
 
