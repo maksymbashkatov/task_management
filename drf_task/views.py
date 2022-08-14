@@ -25,6 +25,9 @@ class TaskViewSet(ModelViewSet):
     filterset_fields = ('status',)
     search_fields = ('name',)
 
+    def create(self, request, *args, **kwargs):
+        return super(TaskViewSet, self).create(request)
+
     def perform_create(self, serializer):
         serializer.save(**{'user': self.request.user})
 
