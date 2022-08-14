@@ -56,8 +56,8 @@ class CustomUser(AbstractUser):
         db_table = 'users'
         verbose_name = 'user'
 
-    def get_absolute_url(self):
-        return reverse('profile_page', args=(self.pk,))
+    # def get_absolute_url(self):
+    #     return reverse('profile_page', args=(self.pk,))
 
 
 class Dashboard(CustomUser):

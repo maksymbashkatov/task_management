@@ -1,7 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -62,9 +61,7 @@ class CustomUserUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['first_name', 'last_name', 'work_position']
     template_name = 'user/profile_page.html'
     login_url = 'not_authorized'
+    success_url = reverse_lazy('profile_page')
 
-    def get(self, request, *args, **kwargs):
-        if self.get_object() == request.user:
-            return super(CustomUserUpdateView, self).get(request)
-        else:
-            return HttpResponseNotFound("You can't edit not you page.")
+    def get_object(self, queryset=None):
+        return self.request.user

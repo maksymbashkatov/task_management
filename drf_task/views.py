@@ -13,3 +13,7 @@ class TaskGenericViewSet(ModelViewSet):
             serializer.save(**{'user': self.request.user})
         else:
             serializer.save()
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Task.objects.filter(user=user)
