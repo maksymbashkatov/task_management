@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'task_management_db',
         'USER': 'postgres',
         'PASSWORD': 'mbroot',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

@@ -1,44 +1,29 @@
-version: "3.9"
+version: '3.9'
 
 services:
-  db:
-    image: postgres
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/code
+      - ./app/:/usr/src/app/
     ports:
       - "8000:8000"
     environment:
       - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=127.0.0.1 [::1]
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
     depends_on:
-      - database
-
-  #POSTGRES
-  database:
+      - db
+  db:
     image: postgres:13.2
     volumes:
-      - ./data/database:/var/lib/postgresql/data
-    restart: always
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
     environment:
-      - POSTGRES_HOST=database
+      - POSTGRES_HOST=localhost
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mbroot
       - POSTGRES_DB=task_managment_db
-    container_name: task_managment
 
-  # PGADMIN
-  pgadmin:
-    image: dpage/pgadmin4:4.30
-    environment:
-      PGADMIN_DEFAULT_PASSWORD: mbroot
-      PGADMIN_LISTEN_PORT: 5050
-    ports: [5050:5050]
-    container_name: pgadmin4
-    volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
-    restart: always
-    depends_on:
-      - database
+volumes:
+  postgres_data:
