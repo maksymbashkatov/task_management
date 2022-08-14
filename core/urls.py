@@ -9,7 +9,7 @@ urlpatterns = [
     path('tasks/', include('task.urls')),
     path('users/', include('user.urls')),
     path('api-auth/', include('rest_framework.urls')),
-    path('drf_tasks/', include(router_tasks.urls)),
+    path('drf_tasks/', include(router_tasks.urls), name='drf_task_list'),
     path('drf_users/', include(router_users.urls)),
     path('api-token-auth/', views.obtain_auth_token)
 ]
